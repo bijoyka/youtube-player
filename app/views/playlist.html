@@ -1,1 +1,100 @@
-<p>This is the playlist view.</p>
+<div class="row playlist">
+
+	<div class="col-sm-6">
+
+		<div class="row" style="margin-bottom: 10px;">
+			<div class="col-sm-6">
+				<form ng-submit="createPlaylist(playlistName)">
+					<div class="form-group">
+						<label for="playlistName">Create New Playlist</label>
+						<input type="text" class="form-control" id="playlistName" name="playlistName" ng-model="playlistName" placeholder="New Playlist" value="">
+					</div>
+					<button type="submit" class="btn btn-default">Create Playlist</button>
+				</form>				
+			</div>
+			<div class="col-sm-6">
+				<span ng-repeat="playlist in playlists.find()" style="margin-right:5px;">
+					<i class="fa fa-times" ng-click="removePlaylist(playlist)"></i>&nbsp;{{playlist.display_name}}
+				</span>
+			</div>
+		</div>
+
+		<form ng-submit="searchVideo(videoQuery)">
+			<div class="form-group">
+				<label for="searchVideoQuery">Search Videos</label>
+				<input type="text" class="form-control" id="searchVideoQuery" ng-model="videoQuery" placeholder="Search Video" value="snsd">
+			</div>
+			<button type="submit" class="btn btn-default">Search</button>
+		</form>
+		<br />
+		<table class="table table-bordered table-hover" ng-if="searchResult.length > 0">
+			<thead>
+				<tr>
+					<th style="width:20%;">Thumbnail</th>
+					<th style="width:30%;">Title</th>
+					<th style="width:20%;">VideoId</th>
+					<th style="width:30%;">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="video in searchResult">
+					<td style="width:20%;">
+						<a href="" ng-click="playVideoSearch(video.id.videoId)">
+							<img ng-src="{{video.snippet.thumbnails.medium.url}}" alt="{{video.id.videoId}}" 
+							class="img-rounded video-thumbnail">
+						</a>
+					</td>
+					<td style="width:30%;">{{video.snippet.title}}</td>
+					<td style="width:20%;">{{video.id.videoId}}</td>
+					<td style="width:30%;">
+						<a href="" ng-click="addToPlaylist(video.id.videoId, video.snippet.title, video.snippet.thumbnails.medium.url)" data-toggle="tooltip" title="Add to playlist"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="well" ng-if="searchResult.length === 0 && youtubeAPICalled">
+			Sorry no videos for <strong>{{videoQuery}}</strong> found
+		</div>
+	</div>
+	<div class="col-sm-6">
+
+		<a href="" ng-click="showVideo = !showVideo">
+			<span ng-show="showVideo">[Hide Video]</span>
+			<span ng-hide="showVideo">[Show Video]</span>
+		</a>
+
+		<div ng-show="showVideo">
+			<youtube-video ng-if="currentPlayingVideoId !== null" video-id="currentPlayingVideoId" player-vars="playerVars" player-width="'640px'" player-height="'390px'"></youtube-video>
+		</div>
+
+		<table class="table table-bordered table-hover" ng-if="currentPlaylist.length > 0">
+			<thead>
+				<tr>
+					<th style="width:5%;">Thumbnail</th>
+					<th style="width:60%;">Title</th>
+					<th style="width:35%;"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="video in currentPlaylist track by $index">
+					<td style="width:5%;">
+						<a href="" ng-click="playVideo(video.videoInfo.id, $index)">
+							<img ng-src="{{video.videoInfo.thumbnail}}" alt="{{video.videoInfo.id}}" 
+							class="img-rounded video-thumbnail">
+						</a>
+					</td>
+					<td style="width:60%;">{{video.videoInfo.title}}</td>
+					<td style="width:35%;">
+						{{video.playing}}
+						&nbsp;
+						<a href="" ng-click="removeVideoFromPlaylist(video)">Remove</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="well" ng-if="currentPlaylist.length === 0">
+			No playlist found
+		</div>		
+	</div>
+</div>

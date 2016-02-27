@@ -81,3 +81,12 @@ body {
     border-bottom: 0;
   }
 }
+
+
+/** Playlist **/
+.playlist .video-thumbnail{
+  /*height:124px;
+  width:220px;*/
+  height:30px;
+  width:50px;
+}

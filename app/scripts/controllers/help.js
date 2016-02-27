@@ -7,5 +7,11 @@
  * # HelpCtrl
  * Controller of the youtubePlaylistApp
  */
-angular.module('youtubePlaylistApp').controller('HelpCtrl',['$scope',function ($scope) {
+angular.module('youtubePlaylistApp').controller('HelpCtrl',['$scope',function($scope) {
+	
+	$scope.init = function(){
+
+	};
+
+	$scope.init();
 }]);
