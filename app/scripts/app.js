@@ -18,7 +18,8 @@ angular
     'ngSanitize',
     'ngTouch',
     'lokijs',
-    'youtube-embed'
+    'youtube-embed',
+    'firebase'
   ])
   .config(function ($routeProvider) {
 

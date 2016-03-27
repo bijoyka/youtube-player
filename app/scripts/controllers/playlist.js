@@ -82,6 +82,7 @@ angular.module('youtubePlaylistApp').controller('PlaylistCtrl',['$scope','Loki',
 
 	/** Playlist **/
 	$scope.addToPlaylist = function(videoId, videoTitle, videoThumbnail){
+		console.log(videoId, videoTitle, videoThumbnail);
 		$scope.videos.insert({
 			'videoInfo' : {
 				'id' : videoId,

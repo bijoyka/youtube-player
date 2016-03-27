@@ -66,8 +66,7 @@
 		<div ng-show="showVideo">
 			<youtube-video ng-if="currentPlayingVideoId !== null" video-id="currentPlayingVideoId" player-vars="playerVars" player-width="'640px'" player-height="'390px'"></youtube-video>
 		</div>
-
-		<table class="table table-bordered table-hover" ng-if="currentPlaylist.length > 0">
+		<table class="table table-bordered table-hover" >
 			<thead>
 				<tr>
 					<th style="width:5%;">Thumbnail</th>
@@ -76,7 +75,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="video in currentPlaylist track by $index">
+				<tr ng-repeat="video in videos.data track by $index">
 					<td style="width:5%;">
 						<a href="" ng-click="playVideo(video.videoInfo.id, $index)">
 							<img ng-src="{{video.videoInfo.thumbnail}}" alt="{{video.videoInfo.id}}" 
@@ -93,7 +92,7 @@
 			</tbody>
 		</table>
 
-		<div class="well" ng-if="currentPlaylist.length === 0">
+		<div class="well" ng-if="videos.length === 0">
 			No playlist found
 		</div>		
 	</div>
